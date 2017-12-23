@@ -2,3 +2,5 @@
 deeplearning/articles/*
 deeplearning/data/*
 deeplearning/glove/*
+deeplearning/models/history.pkl
+deeplearning/models/train.hdf5
