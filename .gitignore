@@ -1,6 +1,13 @@
 !deeplearning/articles/
+
 deeplearning/articles/*
+!deeplearning/data/
+
 deeplearning/data/*
+!deeplearning/glove/
+
 deeplearning/glove/*
+deeplearning/outputs/*
+deeplearning/models/logs/*
 deeplearning/models/history.pkl
 deeplearning/models/train.hdf5
