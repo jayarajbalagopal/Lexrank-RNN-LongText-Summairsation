@@ -1,11 +1,5 @@
-!deeplearning/articles
-
 deeplearning/articles/*
-!deeplearning/data/
-
 deeplearning/data/*
-!deeplearning/glove/
-
 deeplearning/glove/*
 deeplearning/outputs/*
 deeplearning/models/logs/*
