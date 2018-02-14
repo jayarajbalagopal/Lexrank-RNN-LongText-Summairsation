@@ -38,7 +38,6 @@ def main():
     filename = path.join(config.path_articles,"news.jsonl")
     articles = init.load_articles(filename)
     final = tokenize_articles(articles)
-    print(final)
     pickle_articles(final)
 
 

@@ -30,13 +30,13 @@ import keras.backend as K
 parser = argparse.ArgumentParser()
 parser.add_argument('--FN0', default='vocabulary-embedding', help="filename of vocab embeddings")
 parser.add_argument('--FN1', default='train', help="filename of model weights")
-parser.add_argument('--batch-size', type=int, default=10, help='input batch size')
+parser.add_argument('--batch-size', type=int, default=32, help='input batch size')
 parser.add_argument('--epochs', type=int, default=10, help='number of epochs')
-parser.add_argument('--maxlend', type=int, default=100, help='max length of description')
-parser.add_argument('--maxlenh', type=int, default=15, help='max length of head')
+parser.add_argument('--maxlend', type=int, default=150, help='max length of description')
+parser.add_argument('--maxlenh', type=int, default=30, help='max length of head')
 parser.add_argument('--rnn-size', type=int, default=512, help='size of RNN layers')
 parser.add_argument('--rnn-layers', type=int, default=3, help='number of RNN layers')
-parser.add_argument('--nsamples', type=int, default=50, help='number of samples per epoch')
+parser.add_argument('--nsamples', type=int, default=200, help='number of samples per epoch')
 parser.add_argument('--nflips', type=int, default=0, help='number of flips')
 parser.add_argument('--temperature', type=float, default=.8, help='RNN temperature')
 parser.add_argument('--lr', type=float, default=0.0001, help='learning rate, default=0.0001')
@@ -85,7 +85,7 @@ print()
 
 
 for i in range(nb_unknown_words):
-    idx2word[vocab_size - 1 - i] = '<{}>'.format(i)
+    idx2word[vocab_size - 1 - i] = '<%d>'%i
 
 # when printing mark words outside vocabulary with `^` at their end
 oov0 = vocab_size - nb_unknown_words
@@ -97,6 +97,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=nb_val_sampl
 len(X_train), len(Y_train), len(X_test), len(Y_test)
 del X
 del Y
+
 
 empty = 0
 eos = 1

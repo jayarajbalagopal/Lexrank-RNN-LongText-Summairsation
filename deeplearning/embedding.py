@@ -10,7 +10,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 lower = False
-vocab_size = 10000
+vocab_size = 15000
 embedding_dim = 100
 seed = 42
 FN = 'vocabulary-embedding'
@@ -60,8 +60,10 @@ with open(glove_name,'r') as fp:
 	for words in fp:
 		words=words.strip().split()
 		glove_index_dict[words[0]] = i
-		glove_embedding_weights[i, :] = list(map(float, words[1:]))
+		glove_embedding_weights[i, :] = map(float, words[1:])
 		i+=1
+
+glove_embedding_weights *= globale_scale
 
 print('GloVe standard deviation: {:.4f}'.format(glove_embedding_weights.std()))
 
@@ -120,7 +122,7 @@ for w, idx in word2idx.items():
         # find row in embedding that has the highest cos score with gweight
         gweight /= np.sqrt(np.dot(gweight, gweight))
         score = np.dot(normed_embedding[:vocab_size - nb_unknown_words], gweight)
-        print(score)
+        #print(score)
         while True:
             embedding_idx = score.argmax()
             s = score[embedding_idx]
