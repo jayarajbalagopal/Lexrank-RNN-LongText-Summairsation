@@ -388,8 +388,7 @@ np.random.seed(seed)
 
 import re
 
-cluster_content = "What have you been listening to this year? If you want to find out using cold , hard evidence , then Spotify new Year in Music tool will tell you."
-cluster_content = re.sub(r'<\d>','F',cluster_content)
+cluster_content = "Google to investigate new report"
 
 summaries = gensamples(cluster_content, skips=2, batch_size=batch_size, k=10, temperature=1.)
 

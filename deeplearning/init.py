@@ -5,7 +5,7 @@ import numpy as np
 from os import path
 from type import DataContainer,ArticleContainer
 
-n_to_load = 1000 #no of articles to be loaded from json file
+n_to_load = 20 #no of articles to be loaded from json file
 
 def get_train_val_test_keys(keys, val_pct=.1, test_pct=.1):
 

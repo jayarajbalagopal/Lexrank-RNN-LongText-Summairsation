@@ -30,13 +30,13 @@ import keras.backend as K
 parser = argparse.ArgumentParser()
 parser.add_argument('--FN0', default='vocabulary-embedding', help="filename of vocab embeddings")
 parser.add_argument('--FN1', default='train', help="filename of model weights")
-parser.add_argument('--batch-size', type=int, default=32, help='input batch size')
-parser.add_argument('--epochs', type=int, default=10, help='number of epochs')
+parser.add_argument('--batch-size', type=int, default=10, help='input batch size')
+parser.add_argument('--epochs', type=int, default=15, help='number of epochs')
 parser.add_argument('--maxlend', type=int, default=150, help='max length of description')
 parser.add_argument('--maxlenh', type=int, default=30, help='max length of head')
 parser.add_argument('--rnn-size', type=int, default=512, help='size of RNN layers')
 parser.add_argument('--rnn-layers', type=int, default=3, help='number of RNN layers')
-parser.add_argument('--nsamples', type=int, default=200, help='number of samples per epoch')
+parser.add_argument('--nsamples', type=int, default=10, help='number of samples per epoch')
 parser.add_argument('--nflips', type=int, default=0, help='number of flips')
 parser.add_argument('--temperature', type=float, default=.8, help='RNN temperature')
 parser.add_argument('--lr', type=float, default=0.0001, help='learning rate, default=0.0001')
@@ -309,13 +309,25 @@ callbacks = [TensorBoard(
     log_dir=os.path.join(config.path_logs, str(time.time())),
     histogram_freq=2, write_graph=False, write_images=False)]
 
-h = model.fit_generator(
-    traingen, samples_per_epoch=nb_train_samples,
-    nb_epoch=args.epochs, validation_data=valgen, nb_val_samples=nb_val_samples,
-    callbacks=callbacks,
-)
-for k, v in h.history.items():
-    history[k] = history.get(k, []) + v
-with open(os.path.join(config.path_models, 'history.pkl'.format(FN)), 'wb') as fp:
-    pickle.dump(history, fp, -1)
-model.save_weights(FN1_filename, overwrite=True)
+# h = model.fit_generator(
+#     traingen, samples_per_epoch=nb_train_samples,
+#     nb_epoch=args.epochs, validation_data=valgen, nb_val_samples=nb_val_samples,
+#     callbacks=callbacks,
+# )
+# for k, v in h.history.items():
+#     history[k] = history.get(k, []) + v
+# with open(os.path.join(config.path_models, 'history.pkl'.format(FN)), 'wb') as fp:
+#     pickle.dump(history, fp, -1)
+# model.save_weights(FN1_filename, overwrite=True)
+
+for iteration in range(30):
+    print 'Iteration', iteration
+    h = model.fit_generator(traingen, samples_per_epoch=nb_train_samples,
+                        nb_epoch=args.epochs, validation_data=valgen, nb_val_samples=nb_val_samples,
+                        callbacks=callbacks,
+                        )
+    for k,v in h.history.iteritems():
+        history[k] = history.get(k,[]) + v
+    with open(os.path.join(config.path_models, 'history.pkl'.format(FN)), 'wb') as fp:
+        pickle.dump(history, fp, -1)
+    model.save_weights(FN1_filename, overwrite=True)

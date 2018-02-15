@@ -10,7 +10,7 @@ matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 lower = False
-vocab_size = 15000
+vocab_size = 1000
 embedding_dim = 100
 seed = 42
 FN = 'vocabulary-embedding'
